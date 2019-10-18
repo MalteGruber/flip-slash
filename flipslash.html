@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Flip Case</title>
+        <link rel="icon" href="slashicon.png">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <style>
+            body{
+                margin-left:  20px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <script>
+            function convert_slash(method){
+                let text=$("#textarea").val();
+                let fliped="";
+                for(let i=0;i<text.length;i++){
+                    let c=text.charAt(i);
+                    if((c==="/")||(c==="\\")){
+                        switch(method){
+                            case "all_forward":
+                                c="/";
+                                break;
+                            case "all_backward":
+                                c="\\"
+                                break;
+                            case "flip":
+                                if(c==="/")
+                                    c="\\";
+                                else
+                                    c="/";
+                                break;
+                            default:
+                        }
+                    }
+                    fliped+=c;
+                }
+                $("#textarea").val(fliped);
+            }
+
+            function copy_to_clipboard(){
+                let copyText=document.getElementById("textarea");
+                copyText.select();
+                copyText.setSelectionRange(0,99999); /*For mobile devices*/
+                document.execCommand("copy");
+            }
+        </script>
+        
+        <h3>Slash direction conversion tool.</h3>
+        <p> Converts backslash \ to forward slash /</p>
+
+        <textarea id="textarea" rows="4" cols="50" placeholder="Enter text to convert here!"></textarea>
+        <br>
+        <button onclick="convert_slash('flip')">Flip</button>
+        <button onclick="convert_slash('all_forward')">All Forward (/)</button>
+        <button onclick="convert_slash('all_backward')">All Backward (\)</button>
+        <br>
+        <br>
+        <button onclick="copy_to_clipboard()">Copy To Clipboard</button>
+        <hr>
+
+    </body>
+</html>
